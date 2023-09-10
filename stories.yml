@@ -1,0 +1,86 @@
+version: "2.0"
+
+stories:
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: User asks for column statistics
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_column_stats 
+      - action: utter_ask_column_name  # Prompt for column name
+      - intent: provide_column_name  # User provides column name
+        entities:
+          - column_name: "runs"  # User-provided column name
+      - action: utter_ask_stat_type  # Prompt for stat type
+      - intent: provide_stat_type  # User provides stat type
+        entities:
+          - stat_type: "sum"  # User-provided stat type
+      - action: action_calculate_column_stats
+      - intent: mood_great
+      - action: utter_goodbye
+
+  - story: User asks for invalid column statistics
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_column_stats  
+      - action: utter_ask_column_name  # Prompt for column name
+      - intent: provide_column_name  # User provides column name
+        entities:
+          - column_name: "invalid_column"  # User-provided invalid column name
+      - action: utter_ask_stat_type  # Prompt for stat type
+      - intent: provide_stat_type  # User provides stat type
+        entities:
+          - stat_type: "mean"  # User-provided stat type
+      - action: action_calculate_column_stats
+      - intent: mood_unhappy
+      - action: utter_goodbye
+
+
+
+  - story: User asks for column insights
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_column_insights 
+      - action: utter_ask_column_name  # Prompt for column name
+      - intent: provide_column_name  # User provides column name
+        entities:
+          - column_name: "runs"  # User-provided column name
+      - action: utter_ask_h_l_type  # Prompt for stat type
+      - intent: provide_h_l_type  # User provides h_l type
+        entities:
+          - h_l_type: "highest"  # User-provided h_l type
+      - action: utter_ask_n
+      - intent: provide_n_type
+        entities:
+          - n_type: 3
+      - action: action_calculate_column_insights
+      - intent: mood_great
+      - action: utter_goodbye
