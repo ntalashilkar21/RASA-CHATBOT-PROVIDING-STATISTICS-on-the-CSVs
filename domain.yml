@@ -1,0 +1,75 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - ask_column_stats
+  - provide_stat_type
+  - provide_column_name 
+  - provide_h_l_type
+  - provide_n_type
+  - ask_column_insights
+
+entities:
+  - column_name
+  - stat_type
+  - h_l_type
+  - n_type
+
+slots:
+  column_name:
+    type: text
+  stat_type:
+    type: text
+  column_stat:
+    type: text
+  h_l_type:
+    type: text
+  n_type:  
+    type: float
+
+actions:
+  - action_calculate_column_stats
+  - action_calculate_column_insights
+
+responses:
+  utter_greet:
+    - text: "Hey! How can I help you?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: "https://www.premierleague.com/"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+  
+  utter_iamabot:
+    - text: "I am bot powered by RASA"
+  
+  utter_ask_stat_type:
+    - text: " What type of statistic do you want? (e.g. sum, mean, min)"
+    
+  utter_ask_column_name:
+    - text: " Which column would you like to get statistics/insights for ?"
+    
+  utter_ask_h_l_type:
+    - text: " Do you required highest or lowest values ?"  
+    
+  utter_ask_n:
+    - text: " Can you provide the 'n' highest or lowest value ?"   
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
